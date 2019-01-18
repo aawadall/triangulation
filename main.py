@@ -1,6 +1,7 @@
 import random
 import numpy as np
 import scipy.optimize as op
+import time
 
 # Initialize Data
 
@@ -10,7 +11,7 @@ z_scale = 150
 
 scale = [x_scale, y_scale, z_scale]
 
-noise = 5
+noise = 10
 
 def simulate_signal(x_fire_figter, x_beacon):
     # Below numbers are subject to modifications, this is initial research
@@ -116,6 +117,9 @@ def estimate_nonlin(beacons, distances):
     solution = op.least_squares(non_lin_cost, x_hat, verbose=0)
     print("Solution = ",solution.x)
 
-
+start = time.time()
 estimate_nonlin(beacon_pos, distances)
+end = time.time()
+
 print("Ground-truth", _x)
+print("Time Elapsed = ", (end - start)*1000, " ms")
