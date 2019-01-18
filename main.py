@@ -14,6 +14,7 @@ noise = 5
 
 def simulate_signal(x_fire_figter, x_beacon):
     # Below numbers are subject to modifications, this is initial research
+    # Must add impact of temperature on wave propagation
     light_speed = 299792458 # m/s
     reflective_index = [1, # vacum
                         1.000293, #Air
