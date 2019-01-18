@@ -10,7 +10,7 @@ z_scale = 30
 
 scale = [x_scale, y_scale, z_scale]
 
-noise = 0.5
+noise = 0.95
 
 def draw_from_dist(distribution_range):
     return random.randrange(0, #distribution_range * -0.5,
@@ -43,136 +43,10 @@ _x = generate_random_point()
 # beacons
 beacon_pos = []
 
-station_dims = [1, 1, 1]
+station_dims = [1.5, 1.5, 1.5]
 
 # Station 1
 station_core = [-1, -1, 0]
-beacon_pos.append([station_core[0] + 0,
-                   station_core[1] + 0,
-                   station_core[2] + 0])
-beacon_pos.append([station_core[0] + station_dims[0],
-                   station_core[1] + 0,
-                   station_core[2] + 0])
-beacon_pos.append([station_core[0] + 0,
-                   station_core[1] + station_dims[1],
-                   station_core[2] + 0])
-beacon_pos.append([station_core[0] + station_dims[0],
-                   station_core[1] + station_dims[1],
-                   station_core[2] + 0])
-beacon_pos.append([station_core[0] + 0,
-                   station_core[1] + 0,
-                   station_core[2] + station_dims[2]])
-beacon_pos.append([station_core[0] + 0,
-                   station_core[1] + station_dims[1],
-                   station_core[2] + station_dims[2]])
-
-# Station 2
-station_core = [x_scale / 2, -1, 0]
-beacon_pos.append([station_core[0] + 0,
-                   station_core[1] + 0,
-                   station_core[2] + 0])
-beacon_pos.append([station_core[0] + station_dims[0],
-                   station_core[1] + 0,
-                   station_core[2] + 0])
-beacon_pos.append([station_core[0] + 0,
-                   station_core[1] + station_dims[1],
-                   station_core[2] + 0])
-beacon_pos.append([station_core[0] + station_dims[0],
-                   station_core[1] + station_dims[1],
-                   station_core[2] + 0])
-beacon_pos.append([station_core[0] + 0,
-                   station_core[1] + 0,
-                   station_core[2] + station_dims[2]])
-beacon_pos.append([station_core[0] + 0,
-                   station_core[1] + station_dims[1],
-                   station_core[2] + station_dims[2]])
-
-# Station 3
-station_core = [x_scale + 1, -1, 0]
-beacon_pos.append([station_core[0] + 0,
-                   station_core[1] + 0,
-                   station_core[2] + 0])
-beacon_pos.append([station_core[0] + station_dims[0],
-                   station_core[1] + 0,
-                   station_core[2] + 0])
-beacon_pos.append([station_core[0] + 0,
-                   station_core[1] + station_dims[1],
-                   station_core[2] + 0])
-beacon_pos.append([station_core[0] + station_dims[0],
-                   station_core[1] + station_dims[1],
-                   station_core[2] + 0])
-beacon_pos.append([station_core[0] + 0,
-                   station_core[1] + 0,
-                   station_core[2] + station_dims[2]])
-beacon_pos.append([station_core[0] + 0,
-                   station_core[1] + station_dims[1],
-                   station_core[2] + station_dims[2]])
-
-# Station 4
-station_core = [-1, y_scale / 2, 0]
-beacon_pos.append([station_core[0] + 0,
-                   station_core[1] + 0,
-                   station_core[2] + 0])
-beacon_pos.append([station_core[0] + station_dims[0],
-                   station_core[1] + 0,
-                   station_core[2] + 0])
-beacon_pos.append([station_core[0] + 0,
-                   station_core[1] + station_dims[1],
-                   station_core[2] + 0])
-beacon_pos.append([station_core[0] + station_dims[0],
-                   station_core[1] + station_dims[1],
-                   station_core[2] + 0])
-beacon_pos.append([station_core[0] + 0,
-                   station_core[1] + 0,
-                   station_core[2] + station_dims[2]])
-beacon_pos.append([station_core[0] + 0,
-                   station_core[1] + station_dims[1],
-                   station_core[2] + station_dims[2]])
-
-# Station 5
-station_core = [-1, y_scale + 1, 0]
-beacon_pos.append([station_core[0] + 0,
-                   station_core[1] + 0,
-                   station_core[2] + 0])
-beacon_pos.append([station_core[0] + station_dims[0],
-                   station_core[1] + 0,
-                   station_core[2] + 0])
-beacon_pos.append([station_core[0] + 0,
-                   station_core[1] + station_dims[1],
-                   station_core[2] + 0])
-beacon_pos.append([station_core[0] + station_dims[0],
-                   station_core[1] + station_dims[1],
-                   station_core[2] + 0])
-beacon_pos.append([station_core[0] + 0,
-                   station_core[1] + 0,
-                   station_core[2] + station_dims[2]])
-beacon_pos.append([station_core[0] + 0,
-                   station_core[1] + station_dims[1],
-                   station_core[2] + station_dims[2]])
-
-# Station 6
-station_core = [-1, -1, z_scale /2]
-beacon_pos.append([station_core[0] + 0,
-                   station_core[1] + 0,
-                   station_core[2] + 0])
-beacon_pos.append([station_core[0] + station_dims[0],
-                   station_core[1] + 0,
-                   station_core[2] + 0])
-beacon_pos.append([station_core[0] + 0,
-                   station_core[1] + station_dims[1],
-                   station_core[2] + 0])
-beacon_pos.append([station_core[0] + station_dims[0],
-                   station_core[1] + station_dims[1],
-                   station_core[2] + 0])
-beacon_pos.append([station_core[0] + 0,
-                   station_core[1] + 0,
-                   station_core[2] + station_dims[2]])
-beacon_pos.append([station_core[0] + 0,
-                   station_core[1] + station_dims[1],
-                   station_core[2] + station_dims[2]])
-
-# Station 7
-station_core = [-1, -1, z_scale ]
 beacon_pos.append([station_core[0] + 0,
                    station_core[1] + 0,
                    station_core[2] + 0])
