@@ -12,6 +12,17 @@ scale = [x_scale, y_scale, z_scale]
 
 noise = 5
 
+def simulate_signal(x_fire_figter, x_beacon):
+    # Below numbers are subject to modifications, this is initial research
+    light_speed = 299792458 # m/s
+    reflective_index = [1, # vacum
+                        1.000293, #Air
+                        1.333, # Water
+                        1.52, # Window Glass
+                        2.5, #Steel
+                        1.458, # Quartz fused
+                        2 ] # Concrete
+
 def draw_from_dist(distribution_range):
     return random.randrange(0, #distribution_range * -0.5,
                             distribution_range )
