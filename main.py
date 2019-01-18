@@ -4,13 +4,13 @@ import scipy.optimize as op
 
 # Initialize Data
 
-x_scale = 100
-y_scale = 100
-z_scale = 30
+x_scale = 500
+y_scale = 300
+z_scale = 150
 
 scale = [x_scale, y_scale, z_scale]
 
-noise = 0.95
+noise = 5
 
 def draw_from_dist(distribution_range):
     return random.randrange(0, #distribution_range * -0.5,
@@ -46,7 +46,7 @@ beacon_pos = []
 station_dims = [1.5, 1.5, 1.5]
 
 # Station 1
-station_core = [-1, -1, 0]
+station_core = [-50, -50, 0]
 beacon_pos.append([station_core[0] + 0,
                    station_core[1] + 0,
                    station_core[2] + 0])
@@ -66,6 +66,26 @@ beacon_pos.append([station_core[0] + 0,
                    station_core[1] + station_dims[1],
                    station_core[2] + station_dims[2]])
 
+# Station 2
+station_core = [-50, y_scale + 50, 5]
+beacon_pos.append([station_core[0] + 0,
+                   station_core[1] + 0,
+                   station_core[2] + 0])
+beacon_pos.append([station_core[0] + station_dims[0],
+                   station_core[1] + 0,
+                   station_core[2] + 0])
+beacon_pos.append([station_core[0] + 0,
+                   station_core[1] + station_dims[1],
+                   station_core[2] + 0])
+beacon_pos.append([station_core[0] + station_dims[0],
+                   station_core[1] + station_dims[1],
+                   station_core[2] + 0])
+beacon_pos.append([station_core[0] + 0,
+                   station_core[1] + 0,
+                   station_core[2] + station_dims[2]])
+beacon_pos.append([station_core[0] + 0,
+                   station_core[1] + station_dims[1],
+                   station_core[2] + station_dims[2]])
 print("Ground-truth", _x)
 print("Beacon Locations:" )
 print(beacon_pos)
