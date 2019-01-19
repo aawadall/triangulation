@@ -4,6 +4,9 @@ import scipy.optimize as op
 import time
 import matplotlib.pyplot as plt
 import math
+from mpl_toolkits.mplot3d import axes3d, Axes3D
+from matplotlib import cm
+
 # Initialize Data
 
 x_scale = 500
@@ -12,7 +15,7 @@ z_scale = 150
 
 scale = [x_scale, y_scale, z_scale]
 
-noise = 7  # meters
+noise = 4  # meters
 
 # beacons
 beacon_pos = []
@@ -70,13 +73,41 @@ x_predict = []
 y_predict = []
 z_predict = []
 
+velocity_vector = [0, 0, 0]
+beta = 0.99
+
+arm = 2.2
+station_dims = [arm, arm, arm]
+# Station 1
+station_core = [-50, -50, 1]
+
+for x_idx in range(3):
+    for y_idx in range(2):
+        for z_idx in range(2):
+            beacon_pos.append([station_core[0] + station_dims[0] * x_idx,
+                               station_core[1] + station_dims[1] * y_idx,
+                               station_core[2] + station_dims[2] * z_idx])
+
+# Station 2
+station_core = [x_scale + 50, -50, 1]
+
+for x_idx in range(3):
+    for y_idx in range(2):
+        for z_idx in range(2):
+            beacon_pos.append([station_core[0] + station_dims[0] * x_idx,
+                               station_core[1] + station_dims[1] * y_idx,
+                               station_core[2] + station_dims[2] * z_idx])
+
+
 print("Running simulations")
-for loc in range(0, 300):
+for loc in range(0, 5000):
     print(loc)
     # beacons
+    delta_v = [dx + random.randrange(-100, 100)/100 for dx in velocity_vector]
+    for vidx in range(3):
+        velocity_vector[vidx] = beta * velocity_vector[vidx] + (1-beta) * random.randrange(-100, 100)/1000
+        _x[vidx] += velocity_vector[vidx]
 
-    x_inc = [x_el + random.randrange(-100,100)/100 for x_el in _x]
-    _x = x_inc
     x_motion.append(_x[0])
     y_motion.append(_x[1])
     z_motion.append(_x[2])
@@ -84,43 +115,8 @@ for loc in range(0, 300):
     arm = 2.2
     xy_loc.append(loc)
 
-    station_dims = [arm, arm, arm]
-    # Station 1
-    station_core = [-150, -20 , 1]
-    #beacon_pos.append([station_core[0] + 0,
-    #                   station_core[1] + 0,
-    #                   station_core[2] + 0])
-    #beacon_pos.append([station_core[0] + station_dims[0],
-    #                   station_core[1] + 0,
-    #                   station_core[2] + 0])
-    #beacon_pos.append([station_core[0] + 0,
-    #                   station_core[1] + station_dims[1],
-    #                   station_core[2] + 0])
-    #beacon_pos.append([station_core[0] + station_dims[0],
-    #                   station_core[1] + station_dims[1],
-    #                   station_core[2] + 0])
-    #beacon_pos.append([station_core[0] + 0,
-    #                   station_core[1] + 0,
-    #                   station_core[2] + station_dims[2]])
-    #beacon_pos.append([station_core[0] + 0,
-    #                   station_core[1] + station_dims[1],
-    #                   station_core[2] + station_dims[2]])
-    for x_idx in range(3):
-        for z_idx in range(2):
-            beacon_pos.append([station_core[0] + station_dims[0] * x_idx,
-                               station_core[1] + 0,
-                               station_core[2] + station_dims[2] * z_idx])
-    #beacon_pos.append([station_core[0] + station_dims[0],
-    #                   station_core[1] + station_dims[1],
-    #                   station_core[2] + station_dims[2]])
-
-    #print("Ground-truth", _x)
-    #print("Beacon Locations:" )
-    #print(beacon_pos)
 
     distances = bulk_distance(beacon_pos, _x)
-    #print("Distances (SQ)")
-    #print(distances)
 
     start = time.time()
     solution = estimate_nonlin(beacon_pos, distances)
@@ -129,11 +125,6 @@ for loc in range(0, 300):
     x_predict.append(solution[0])
     y_predict.append(solution[1])
     z_predict.append(solution[2])
-
-    #print("Ground-truth", _x)
-    #print("Solution = ", solution)
-    #print("Time Elapsed = ", (end - start)*1000, " ms")
-    #print("Distance = ", single_point_distance(solution, _x))
 
     e = single_point_distance(solution, _x)
     error.append(e)
@@ -145,34 +136,12 @@ print("Finished Simulation")
 #print(xy_loc)
 
 fig = plt.figure()
-ax = fig.add_subplot(111, projection='3d')
+ax = Axes3D(fig)
+#ax = fig.add_subplot(111, projection='3d')
+ax.plot3D(x_motion, y_motion, z_motion, c='gray')
 ax.scatter(x_motion, y_motion, z_motion, c='green', marker='^')
-ax.scatter(x_predict, y_predict, z_predict, c='red', marker='o')
+ax.plot3D(x_predict, y_predict, z_predict, linestyle=':')
+ax.scatter(x_predict, y_predict, z_predict, c=duration, marker='o')
+#ax.scatter(station_core[0], station_core[1], station_core[2], marker='*')
+#ax.annotate('Station',(station_core[0], station_core[1]))
 plt.show()
-
-#fig, actual_plt = plt.subplots()
-
-#color = 'tab:green'
-#actual_plt.scatter(x_motion, y_motion, s=duration)
-
-#predict_plt = actual_plt.twinx()
-#color = 'tab:red'
-#predict_plt.scatter(x_predict, y_predict, z_predict, c='red')
-#errplt.set_xlabel('arm length in m')
-#errplt.set_ylabel('error (m)', color=color)
-#errplt.scatter(xy_loc, error, color=color)
-#errplt.tick_params(axis='y', labelcolor=color)
-
-#timeplt = errplt.twinx()
-#color = 'tab:blue'
-#timeplt.set_ylabel('duration (ms)', color=color)
-#timeplt.scatter(xy_loc, duration, color=color)
-#timeplt.tick_params(axis='y',labelcolor=color)
-
-#fig.tight_layout()
-
-#plt.show()
-
-#ax.plot3D(x_motion, y_motion, z_motion,'gray')
-
-#plt.show()
