@@ -61,39 +61,55 @@ _x = generate_random_point()
 error = []
 xy_loc = []
 duration = []
+
+x_motion = []
+y_motion = []
+z_motion = []
+
+x_predict = []
+y_predict = []
+z_predict = []
+
 print("Running simulations")
-for loc in range(9, 35):
+for loc in range(0, 300):
     print(loc)
     # beacons
 
+    x_inc = [x_el + random.randrange(-100,100)/100 for x_el in _x]
+    _x = x_inc
+    x_motion.append(_x[0])
+    y_motion.append(_x[1])
+    z_motion.append(_x[2])
 
-    arm = loc / 10
-    xy_loc.append(arm)
+    arm = 2.2
+    xy_loc.append(loc)
 
     station_dims = [arm, arm, arm]
     # Station 1
     station_core = [-150, -20 , 1]
-    beacon_pos.append([station_core[0] + 0,
-                       station_core[1] + 0,
-                       station_core[2] + 0])
-    beacon_pos.append([station_core[0] + station_dims[0],
-                       station_core[1] + 0,
-                       station_core[2] + 0])
+    #beacon_pos.append([station_core[0] + 0,
+    #                   station_core[1] + 0,
+    #                   station_core[2] + 0])
+    #beacon_pos.append([station_core[0] + station_dims[0],
+    #                   station_core[1] + 0,
+    #                   station_core[2] + 0])
     #beacon_pos.append([station_core[0] + 0,
     #                   station_core[1] + station_dims[1],
     #                   station_core[2] + 0])
-    beacon_pos.append([station_core[0] + station_dims[0],
-                       station_core[1] + station_dims[1],
-                       station_core[2] + 0])
-    beacon_pos.append([station_core[0] + 0,
-                       station_core[1] + 0,
-                       station_core[2] + station_dims[2]])
-    beacon_pos.append([station_core[0] + 0,
-                       station_core[1] + station_dims[1],
-                       station_core[2] + station_dims[2]])
     #beacon_pos.append([station_core[0] + station_dims[0],
+    #                   station_core[1] + station_dims[1],
+    #                   station_core[2] + 0])
+    #beacon_pos.append([station_core[0] + 0,
     #                   station_core[1] + 0,
     #                   station_core[2] + station_dims[2]])
+    #beacon_pos.append([station_core[0] + 0,
+    #                   station_core[1] + station_dims[1],
+    #                   station_core[2] + station_dims[2]])
+    for x_idx in range(3):
+        for z_idx in range(2):
+            beacon_pos.append([station_core[0] + station_dims[0] * x_idx,
+                               station_core[1] + 0,
+                               station_core[2] + station_dims[2] * z_idx])
     #beacon_pos.append([station_core[0] + station_dims[0],
     #                   station_core[1] + station_dims[1],
     #                   station_core[2] + station_dims[2]])
@@ -110,6 +126,10 @@ for loc in range(9, 35):
     solution = estimate_nonlin(beacon_pos, distances)
     end = time.time()
 
+    x_predict.append(solution[0])
+    y_predict.append(solution[1])
+    z_predict.append(solution[2])
+
     #print("Ground-truth", _x)
     #print("Solution = ", solution)
     #print("Time Elapsed = ", (end - start)*1000, " ms")
@@ -121,23 +141,38 @@ for loc in range(9, 35):
     #time.sleep(1)
 
 print("Finished Simulation")
-print(error)
-print(xy_loc)
+#print(error)
+#print(xy_loc)
 
-fig, errplt = plt.subplots()
-
-color = 'tab:red'
-errplt.set_xlabel('arm length in m')
-errplt.set_ylabel('error (m)', color=color)
-errplt.scatter(xy_loc, error, color=color)
-errplt.tick_params(axis='y', labelcolor=color)
-
-timeplt = errplt.twinx()
-color = 'tab:blue'
-timeplt.set_ylabel('duration (ms)', color=color)
-timeplt.scatter(xy_loc, duration, color=color)
-timeplt.tick_params(axis='y',labelcolor=color)
-
-fig.tight_layout()
-
+fig = plt.figure()
+ax = fig.add_subplot(111, projection='3d')
+ax.scatter(x_motion, y_motion, z_motion, c='green', marker='^')
+ax.scatter(x_predict, y_predict, z_predict, c='red', marker='o')
 plt.show()
+
+#fig, actual_plt = plt.subplots()
+
+#color = 'tab:green'
+#actual_plt.scatter(x_motion, y_motion, s=duration)
+
+#predict_plt = actual_plt.twinx()
+#color = 'tab:red'
+#predict_plt.scatter(x_predict, y_predict, z_predict, c='red')
+#errplt.set_xlabel('arm length in m')
+#errplt.set_ylabel('error (m)', color=color)
+#errplt.scatter(xy_loc, error, color=color)
+#errplt.tick_params(axis='y', labelcolor=color)
+
+#timeplt = errplt.twinx()
+#color = 'tab:blue'
+#timeplt.set_ylabel('duration (ms)', color=color)
+#timeplt.scatter(xy_loc, duration, color=color)
+#timeplt.tick_params(axis='y',labelcolor=color)
+
+#fig.tight_layout()
+
+#plt.show()
+
+#ax.plot3D(x_motion, y_motion, z_motion,'gray')
+
+#plt.show()
