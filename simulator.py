@@ -64,8 +64,19 @@ class Ether(object):
         
     def get_propagation_sphere(self, index):
         """from a point in grid, define the sphere of grid cells surrounding that point"""
-        # TODO
-        return None
+        # TODO, construct a sphere around the point specified in all directions, 
+        # this should use the same approximation method defined earlier 
+        
+        radius = resolution
+        
+        propagation_sphere = [] 
+        for phi in np.arange(0, math.pi *2, resolution):
+            for theta in np.arange(0, math.pi * 2, resolution):
+                location = [math.cos(phi) * math.sin(theta) * radius,
+                            math.sin(phi) * math.sin(theta) * radius,
+                            math.cos(theta) * radius]
+                propagation_sphere.append(self.find_location_index(location))
+        return propagation_sphere
     
 def speed_in_medium(medium_index):
     return c / refraction_index[medium_index]
