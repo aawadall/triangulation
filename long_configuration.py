@@ -74,14 +74,14 @@ y_predict = []
 z_predict = []
 
 velocity_vector = [0, 0, 0]
-beta = 0.99
+beta = 0.999
 
-arm = 2.2
+arm = 1.3
 station_dims = [arm, arm, arm]
 # Station 1
 station_core = [-50, -50, 1]
 
-for x_idx in range(3):
+for x_idx in range(2):
     for y_idx in range(2):
         for z_idx in range(2):
             beacon_pos.append([station_core[0] + station_dims[0] * x_idx,
@@ -89,9 +89,19 @@ for x_idx in range(3):
                                station_core[2] + station_dims[2] * z_idx])
 
 # Station 2
+station_core = [x_scale/2, -50, 1]
+
+for x_idx in range(2):
+    for y_idx in range(2):
+        for z_idx in range(2):
+            beacon_pos.append([station_core[0] + station_dims[0] * x_idx,
+                               station_core[1] + station_dims[1] * y_idx,
+                               station_core[2] + station_dims[2] * z_idx])
+
+# Station 3
 station_core = [x_scale + 50, -50, 1]
 
-for x_idx in range(3):
+for x_idx in range(2):
     for y_idx in range(2):
         for z_idx in range(2):
             beacon_pos.append([station_core[0] + station_dims[0] * x_idx,
@@ -100,7 +110,7 @@ for x_idx in range(3):
 
 
 print("Running simulations")
-for loc in range(0, 5000):
+for loc in range(0, 500):
     print(loc)
     # beacons
     delta_v = [dx + random.randrange(-100, 100)/100 for dx in velocity_vector]
@@ -139,7 +149,7 @@ fig = plt.figure()
 ax = Axes3D(fig)
 #ax = fig.add_subplot(111, projection='3d')
 ax.plot3D(x_motion, y_motion, z_motion, c='gray')
-ax.scatter(x_motion, y_motion, z_motion, c='green', marker='^')
+#ax.scatter(x_motion, y_motion, z_motion, c='green', marker='^')
 ax.plot3D(x_predict, y_predict, z_predict, linestyle=':')
 ax.scatter(x_predict, y_predict, z_predict, c=duration, marker='o')
 #ax.scatter(station_core[0], station_core[1], station_core[2], marker='*')
