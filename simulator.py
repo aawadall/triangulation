@@ -2,11 +2,12 @@
 import thread
 import time
 import numpy as np
+import math 
 
 resolution = 0.1  # meters
 c = 299792458  # speed of light in m/s
 default_frequency = 2.4  # GHz
-world_size = [500, 500, 100]
+world_size = [50, 50, 10]  # in meters 
 
 medium = [
     "vacuum",
@@ -25,9 +26,15 @@ refraction_index = [
 class CellSignal(object):
     """Contains information about a signal in an ether cell"""
     def __init__(self, frequency=default_frequency, strength=1):
-        self.velocity = np.zeros(3)
+        self.velocity = np.zeros(3)  # velocity will be relative to speed of light
         self.frequency = frequency
         self.signal_strength = strength
+        self.signal = ''
+        
+    def emit(self, signal, velocity, signal_strength):
+        self.velocity = velocity
+        self.signal_strength = signal_strength
+        self.signal = signal
         
     
 #TODO: create an object: Ether to hold a message at a given frequency for one tick, this object given the frequency can have the message written to it, or read from it. if one tick passes, the message is to be deleted
@@ -38,7 +45,28 @@ class Ether(object):
             CellSignal() for x in range(world_size[0]*(1/resolution))] 
                          for y in range(world_size[1]*(1/resolution))] 
                          for z in range(world_size[2]*(1/resolution))])
+    
+    def emit_signal(self, signal, location):
+        """create a new signal in point marked in location"""
+        index = self.find_location_index(location)
+                
+    def find_location_index(self, location):
+        """a location array could be a vector of real numbers, this function will approximate index""" 
+        if 0 <= location[0] <= world_size[0] and \
+           0 <= location[1] <= world_size[1] and \
+           0 <= location[2] <= world_size[2]:
+            return [False,  # Point not outside grid
+                    round(location[0] / resolution),  # x index
+                    round(location[1] / resolution),  # y index 
+                    round(location[2] / resolution)]  # z index 
+        else:
+            return [True, 0, 0, 0]
         
+    def get_propagation_sphere(self, index):
+        """from a point in grid, define the sphere of grid cells surrounding that point"""
+        # TODO
+        return None
+    
 def speed_in_medium(medium_index):
     return c / refraction_index[medium_index]
 
