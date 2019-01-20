@@ -68,9 +68,9 @@ class Ether(object):
         propagation_sphere = [] 
         for phi in np.arange(0, math.pi *2, resolution):
             for theta in np.arange(0, math.pi * 2, resolution):
-                location = [math.cos(phi) * math.sin(theta) * radius,
-                            math.sin(phi) * math.sin(theta) * radius,
-                            math.cos(theta) * radius]
+                location = [index[0] * resolution + math.cos(phi) * math.sin(theta) * radius,
+                            index[1] * resolution + math.sin(phi) * math.sin(theta) * radius,
+                            index[2] * resolution + math.cos(theta) * radius]
                 index = self.find_location_index(location)
                 if not index[0]:
                     propagation_sphere.append(index)
