@@ -48,8 +48,9 @@ class Ether(object):
     
     def emit_signal(self, signal, location):
         """create a new signal in point marked in location"""
-        index = self.find_location_index(location)
-                
+        center_index = self.find_location_index(location)
+        propagation_sphere = self.get_propagation_sphere(center_index)
+        
     def find_location_index(self, location):
         """a location array could be a vector of real numbers, this function will approximate index""" 
         if 0 <= location[0] <= world_size[0] and \
