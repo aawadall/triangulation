@@ -15,7 +15,7 @@ z_scale = 150
 
 scale = [x_scale, y_scale, z_scale]
 
-noise = 3  # meters
+noise = 10  # meters
 
 # beacons
 beacon_pos = []
