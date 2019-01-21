@@ -89,12 +89,12 @@ station_core_z = []
 station_dims = [arm, arm, arm * 2]
 
 # Station 1
-station_core = [x_scale / 2, -50, 1]
+station_core = [x_scale / 2, -5, 1]
 station_core_x.append(station_core[0])
 station_core_y.append(station_core[1])
 station_core_z.append(station_core[2])
-for x_idx in range(1):
-    for y_idx in range(1):
+for x_idx in range(2):
+    for y_idx in range(2):
         for z_idx in range(2):
             beacon_pos.append([station_core[0] + station_dims[0] * x_idx,
                                station_core[1] + station_dims[1] * y_idx,
@@ -121,6 +121,7 @@ for x_idx in range(1):
 
 
 
+beacon_interval = 1
 
 print("Running simulations")
 for loc in range(1, 5000):
@@ -136,12 +137,14 @@ for loc in range(1, 5000):
         if(_x[vidx] > scale[vidx]):
             _x[vidx] = scale[vidx]
 
-    if (loc % 500) == 0:  # place tracing beacon every 100 steps
+
+    if (loc % beacon_interval) == 0:  # place tracing beacon every 100 steps
         print('Add tracing beacon')
         station_core_x.append(_x[0]+1)
         station_core_y.append(_x[1]+1)
         station_core_z.append(_x[2]+1)
         beacon_pos.append([_x[0]+1, _x[1]+1, _x[2]+1])
+        beacon_interval *= random.randint(2,5)
 
     x_motion.append(_x[0])
     y_motion.append(_x[1])
