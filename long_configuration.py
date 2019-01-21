@@ -100,21 +100,21 @@ for x_idx in range(2):
                                station_core[1] + station_dims[1] * y_idx,
                                station_core[2] + station_dims[2] * z_idx])
 
-# Beacons only
-station_core = [-50, -50, 1]
-
-y_idx = 0
-z_idx = 0
-for x_idx in range(x_scale, 0, -150):
-    for y_idx in range(-4, -3, 1):
-        for z_idx in range(4, 5, 1):
-            station_core = [-3 + x_idx, -3 + y_idx, z_idx + 0.1]
-            beacon_pos.append([station_core[0],
-                               station_core[1],
-                               station_core[2]])
-            station_core_x.append(station_core[0])
-            station_core_y.append(station_core[1])
-            station_core_z.append(station_core[2])
+## # Beacons only
+## station_core = [-50, -50, 1]
+##
+## y_idx = 0
+## z_idx = 0
+## for x_idx in range(x_scale, 0, -150):
+##     for y_idx in range(-4, -3, 1):
+##         for z_idx in range(4, 5, 1):
+##             station_core = [-3 + x_idx, -3 + y_idx, z_idx + 0.1]
+##             beacon_pos.append([station_core[0],
+##                                station_core[1],
+##                                station_core[2]])
+##             station_core_x.append(station_core[0])
+##             station_core_y.append(station_core[1])
+##             station_core_z.append(station_core[2])
 
 
 
