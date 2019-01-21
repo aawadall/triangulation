@@ -41,7 +41,7 @@ def bulk_distance(beacons, point):
                 (beacon[0] - point[0]) ** 2 +
                 (beacon[1] - point[1]) ** 2 +
                 (beacon[2] - point[2]) ** 2 * \
-                (1 + random.randrange(-1, 1) * 0.2) +  # noise as function of distance
+                (1 + random.randrange(-1, 1) * 1) +  # noise as function of distance
                 random.randrange(-1, 1) * noise  # uniform noise
             )
 
@@ -66,7 +66,7 @@ def estimate_nonlin(beacons, distances):
     return sol.x
 
 # Ground truth point
-_x = [0, 0, 0] #generate_random_point()
+_x = [x_scale /2, 0, 0] #generate_random_point()
 
 error = []
 xy_loc = []
@@ -88,7 +88,19 @@ arm = 1.5
 station_core_x = []
 station_core_y = []
 station_core_z = []
-station_dims = [arm, arm, arm * 2]
+station_dims = [arm, arm, arm ]
+
+## # Station 0
+## station_core = [x_scale / 2, -5, 35]
+## station_core_x.append(station_core[0])
+## station_core_y.append(station_core[1])
+## station_core_z.append(station_core[2])
+## for x_idx in range(2):
+##     for y_idx in range(2):
+##         for z_idx in range(2):
+##             beacon_pos.append([station_core[0] + station_dims[0] * x_idx,
+##                                station_core[1] + station_dims[1] * y_idx,
+##                                station_core[2] + station_dims[2] * z_idx])
 
 # Station 1
 station_core = [x_scale / 2, -5, 1]
@@ -101,6 +113,42 @@ for x_idx in range(2):
             beacon_pos.append([station_core[0] + station_dims[0] * x_idx,
                                station_core[1] + station_dims[1] * y_idx,
                                station_core[2] + station_dims[2] * z_idx])
+
+## # Station 2
+## station_core = [-5, -5, 1]
+## station_core_x.append(station_core[0])
+## station_core_y.append(station_core[1])
+## station_core_z.append(station_core[2])
+## for x_idx in range(2):
+##     for y_idx in range(2):
+##         for z_idx in range(2):
+##             beacon_pos.append([station_core[0] + station_dims[0] * x_idx,
+##                                station_core[1] + station_dims[1] * y_idx,
+##                                station_core[2] + station_dims[2] * z_idx])
+##
+##
+## # Station 3
+## station_core = [-5, y_scale/2, 1]
+## station_core_x.append(station_core[0])
+## station_core_y.append(station_core[1])
+## station_core_z.append(station_core[2])
+## for x_idx in range(2):
+##     for y_idx in range(2):
+##         for z_idx in range(2):
+##             beacon_pos.append([station_core[0] + station_dims[0] * x_idx,
+##                                station_core[1] + station_dims[1] * y_idx,
+##                                station_core[2] + station_dims[2] * z_idx])
+## ## # Station 4
+## station_core = [-5, y_scale/2, 35]
+## station_core_x.append(station_core[0])
+## station_core_y.append(station_core[1])
+## station_core_z.append(station_core[2])
+## for x_idx in range(2):
+##     for y_idx in range(2):
+##         for z_idx in range(2):
+##             beacon_pos.append([station_core[0] + station_dims[0] * x_idx,
+##                                station_core[1] + station_dims[1] * y_idx,
+##                                station_core[2] + station_dims[2] * z_idx])
 
 ## # Beacons only
 ## station_core = [-50, -50, 1]
@@ -140,13 +188,14 @@ for loc in range(1, 5000):
             _x[vidx] = scale[vidx]
 
 
-    if (loc % beacon_interval) == 0:  # place tracing beacon every 100 steps
+    beacon_chance = 0.001
+    if (random.random() < beacon_chance):  # place tracing beacon every 100 steps
         print('Add tracing beacon')
         station_core_x.append(_x[0]+1)
         station_core_y.append(_x[1]+1)
         station_core_z.append(_x[2]+1)
         beacon_pos.append([_x[0]+1, _x[1]+1, _x[2]+1])
-        beacon_interval *= random.randint(2,5)
+        beacon_interval *= random.randint(1,3)
 
     x_motion.append(_x[0])
     y_motion.append(_x[1])
