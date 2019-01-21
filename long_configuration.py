@@ -15,7 +15,7 @@ z_scale = 150
 
 scale = [x_scale, y_scale, z_scale]
 
-noise = 10  # meters
+noise = 3  # meters
 
 # beacons
 beacon_pos = []
@@ -60,8 +60,8 @@ def non_lin_cost(x, beacons, distances):
 
 def estimate_nonlin(beacons, distances):
     x_hat = generate_random_point()
-    solution = op.least_squares(non_lin_cost,  x_hat, verbose=0,args=(beacons, distances))
-    return solution.x
+    sol = op.least_squares(non_lin_cost, x_hat, verbose=0, args=(beacons, distances))
+    return sol.x
 
 # Ground truth point
 _x = [0, 0, 0] #generate_random_point()
@@ -81,21 +81,33 @@ z_predict = []
 velocity_vector = [0, 0, 0]
 beta = 0.99
 
-arm = 3
+arm = 1
 
 station_core_x = []
 station_core_y = []
 station_core_z = []
-station_dims = [arm, arm, arm]
+station_dims = [arm, arm, arm * 5]
+
+# Station 1
+station_core = [x_scale / 2, -50, 1]
+station_core_x.append(station_core[0])
+station_core_y.append(station_core[1])
+station_core_z.append(station_core[2])
+for x_idx in range(2):
+    for y_idx in range(2):
+        for z_idx in range(2):
+            beacon_pos.append([station_core[0] + station_dims[0] * x_idx,
+                               station_core[1] + station_dims[1] * y_idx,
+                               station_core[2] + station_dims[2] * z_idx])
 
 # Beacons only
 station_core = [-50, -50, 1]
 
 y_idx = 0
 z_idx = 0
-for x_idx in range(x_scale, 0, -30):
-    for y_idx in range(4, 0, -3):
-        for z_idx in range(4, 0, -3):
+for x_idx in range(x_scale, 0, -150):
+    for y_idx in range(-4, -3, 1):
+        for z_idx in range(4, 5, 1):
             station_core = [-3 + x_idx, -3 + y_idx, z_idx + 0.1]
             beacon_pos.append([station_core[0],
                                station_core[1],
@@ -105,17 +117,7 @@ for x_idx in range(x_scale, 0, -30):
             station_core_z.append(station_core[2])
 
 
-### Station 1
-##station_core = [-50, -50, 1]
-##station_core_x.append(station_core[0])
-##station_core_y.append(station_core[1])
-##station_core_z.append(station_core[2])
-##for x_idx in range(2):
-##    for y_idx in range(2):
-##        for z_idx in range(2):
-##            beacon_pos.append([station_core[0] + station_dims[0] * x_idx,
-##                               station_core[1] + station_dims[1] * y_idx,
-##                               station_core[2] + station_dims[2] * z_idx])
+
 
 
 
@@ -126,7 +128,7 @@ for loc in range(1, 5000):
     # beacons
     delta_v = [dx + random.randrange(-100, 100)/100 for dx in velocity_vector]
     for vidx in range(3):
-        velocity_vector[vidx] = beta * velocity_vector[vidx] + (1-beta) * random.randrange(-100, 100)/100
+        velocity_vector[vidx] = beta * velocity_vector[vidx] + (1-beta) * random.randrange(-100, 100)/10
         _x[vidx] += velocity_vector[vidx]
         # Geofencing
         if(_x[vidx] < 0):
