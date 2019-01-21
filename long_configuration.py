@@ -15,7 +15,7 @@ z_scale = 150
 
 scale = [x_scale, y_scale, z_scale]
 
-noise = 4  # meters
+noise = 10  # meters
 
 # beacons
 beacon_pos = []
@@ -36,10 +36,13 @@ def generate_random_point(_x_scale=x_scale,
 def bulk_distance(beacons, point):
     distance = []
     for beacon in beacons:
-        distance.append((beacon[0] - point[0]) ** 2 +
+        distance.append(((beacon[0] - point[0]) ** 2 +
                         (beacon[1] - point[1]) ** 2 +
                         (beacon[2] - point[2]) ** 2 +
-                        random.randrange(-1, 1) * noise)
+                        random.randrange(-1, 1) * noise) *
+                        (1 + random.randrange(-1, 1) * noise / 100))  # Make distance noise
+                                                                # a function of distance to simulate weak signal
+
     return np.sqrt(distance)
 
 
@@ -76,11 +79,17 @@ z_predict = []
 velocity_vector = [0, 0, 0]
 beta = 0.999
 
-arm = 1.3
+arm = 3
+
+station_core_x = []
+station_core_y = []
+station_core_z = []
 station_dims = [arm, arm, arm]
 # Station 1
 station_core = [-50, -50, 1]
-
+station_core_x.append(station_core[0])
+station_core_y.append(station_core[1])
+station_core_z.append(station_core[2])
 for x_idx in range(2):
     for y_idx in range(2):
         for z_idx in range(2):
@@ -90,7 +99,9 @@ for x_idx in range(2):
 
 # Station 2
 station_core = [x_scale/2, -50, 1]
-
+station_core_x.append(station_core[0])
+station_core_y.append(station_core[1])
+station_core_z.append(station_core[2])
 for x_idx in range(2):
     for y_idx in range(2):
         for z_idx in range(2):
@@ -99,8 +110,10 @@ for x_idx in range(2):
                                station_core[2] + station_dims[2] * z_idx])
 
 # Station 3
-station_core = [x_scale + 50, -50, 1]
-
+station_core = [-50, y_scale/2, 0]
+station_core_x.append(station_core[0])
+station_core_y.append(station_core[1])
+station_core_z.append(station_core[2])
 for x_idx in range(2):
     for y_idx in range(2):
         for z_idx in range(2):
@@ -110,19 +123,24 @@ for x_idx in range(2):
 
 
 print("Running simulations")
-for loc in range(0, 500):
+for loc in range(0, 5000):
     print(loc)
     # beacons
     delta_v = [dx + random.randrange(-100, 100)/100 for dx in velocity_vector]
     for vidx in range(3):
-        velocity_vector[vidx] = beta * velocity_vector[vidx] + (1-beta) * random.randrange(-100, 100)/1000
+        velocity_vector[vidx] = beta * velocity_vector[vidx] + (1-beta) * random.randrange(-100, 100)/10
         _x[vidx] += velocity_vector[vidx]
+        # Geofencing
+        if(_x[vidx] < 0):
+            _x[vidx] = 0
+        if(_x[vidx] > scale[vidx]):
+            _x[vidx] = scale[vidx]
 
     x_motion.append(_x[0])
     y_motion.append(_x[1])
     z_motion.append(_x[2])
 
-    arm = 2.2
+
     xy_loc.append(loc)
 
 
@@ -148,10 +166,10 @@ print("Finished Simulation")
 fig = plt.figure()
 ax = Axes3D(fig)
 #ax = fig.add_subplot(111, projection='3d')
-ax.plot3D(x_motion, y_motion, z_motion, c='gray')
+ax.plot3D(x_motion, y_motion, z_motion, c='red')
 #ax.scatter(x_motion, y_motion, z_motion, c='green', marker='^')
-ax.plot3D(x_predict, y_predict, z_predict, linestyle=':')
+#ax.plot3D(x_predict, y_predict, z_predict, linestyle=':')
 ax.scatter(x_predict, y_predict, z_predict, c=duration, marker='o')
-#ax.scatter(station_core[0], station_core[1], station_core[2], marker='*')
+ax.scatter(station_core_x, station_core_y, station_core_z, marker='*')
 #ax.annotate('Station',(station_core[0], station_core[1]))
 plt.show()
