@@ -128,7 +128,7 @@ for loc in range(0, 5000):
     # beacons
     delta_v = [dx + random.randrange(-100, 100)/100 for dx in velocity_vector]
     for vidx in range(3):
-        velocity_vector[vidx] = beta * velocity_vector[vidx] + (1-beta) * random.randrange(-100, 100)/10
+        velocity_vector[vidx] = beta * velocity_vector[vidx] + (1-beta) * random.randrange(-100, 100)/1
         _x[vidx] += velocity_vector[vidx]
         # Geofencing
         if(_x[vidx] < 0):
