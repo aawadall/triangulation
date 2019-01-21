@@ -1,3 +1,4 @@
+# TODO: in this file, distance should always be sorted nearest to furthest, and discard furthest 50% as long as we have at least 6 beacons in place
 import random
 import numpy as np
 import scipy.optimize as op
