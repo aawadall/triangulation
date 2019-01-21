@@ -108,7 +108,7 @@ for loc in range(1, 5000):
     # beacons
     delta_v = [dx + random.randrange(-100, 100)/100 for dx in velocity_vector]
     for vidx in range(3):
-        velocity_vector[vidx] = beta * velocity_vector[vidx] + (1-beta) * random.randrange(-100, 100)/1
+        velocity_vector[vidx] = beta * velocity_vector[vidx] + (1-beta) * random.randrange(-100, 100)/100
         _x[vidx] += velocity_vector[vidx]
         # Geofencing
         if(_x[vidx] < 0):
@@ -116,7 +116,7 @@ for loc in range(1, 5000):
         if(_x[vidx] > scale[vidx]):
             _x[vidx] = scale[vidx]
 
-    if (loc % 1000) == 0:  # place tracing beacon every 100 steps
+    if (loc % 300) == 0:  # place tracing beacon every 100 steps
         print('Add tracing beacon')
         station_core_x.append(_x[0]+1)
         station_core_y.append(_x[1]+1)
