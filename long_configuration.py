@@ -64,7 +64,7 @@ def estimate_nonlin(beacons, distances):
     return solution.x
 
 # Ground truth point
-_x = generate_random_point()
+_x = [0, 0, 0] #generate_random_point()
 
 error = []
 xy_loc = []
@@ -87,17 +87,35 @@ station_core_x = []
 station_core_y = []
 station_core_z = []
 station_dims = [arm, arm, arm]
-# Station 1
+
+# Beacons only
 station_core = [-50, -50, 1]
-station_core_x.append(station_core[0])
-station_core_y.append(station_core[1])
-station_core_z.append(station_core[2])
-for x_idx in range(2):
-    for y_idx in range(2):
-        for z_idx in range(2):
-            beacon_pos.append([station_core[0] + station_dims[0] * x_idx,
-                               station_core[1] + station_dims[1] * y_idx,
-                               station_core[2] + station_dims[2] * z_idx])
+
+y_idx = 0
+z_idx = 0
+for x_idx in range(x_scale, 0, -30):
+    for y_idx in range(4, 0, -3):
+        for z_idx in range(4, 0, -3):
+            station_core = [-3 + x_idx, -3 + y_idx, z_idx + 0.1]
+            beacon_pos.append([station_core[0],
+                               station_core[1],
+                               station_core[2]])
+            station_core_x.append(station_core[0])
+            station_core_y.append(station_core[1])
+            station_core_z.append(station_core[2])
+
+
+### Station 1
+##station_core = [-50, -50, 1]
+##station_core_x.append(station_core[0])
+##station_core_y.append(station_core[1])
+##station_core_z.append(station_core[2])
+##for x_idx in range(2):
+##    for y_idx in range(2):
+##        for z_idx in range(2):
+##            beacon_pos.append([station_core[0] + station_dims[0] * x_idx,
+##                               station_core[1] + station_dims[1] * y_idx,
+##                               station_core[2] + station_dims[2] * z_idx])
 
 
 
@@ -116,7 +134,7 @@ for loc in range(1, 5000):
         if(_x[vidx] > scale[vidx]):
             _x[vidx] = scale[vidx]
 
-    if (loc % 300) == 0:  # place tracing beacon every 100 steps
+    if (loc % 500) == 0:  # place tracing beacon every 100 steps
         print('Add tracing beacon')
         station_core_x.append(_x[0]+1)
         station_core_y.append(_x[1]+1)
@@ -156,5 +174,5 @@ ax.plot3D(x_motion, y_motion, z_motion, c='green')
 
 ax.scatter(x_predict, y_predict, z_predict, c=error, marker='o')
 ax.scatter(station_core_x, station_core_y, station_core_z, marker='*',c='red')
-
+ax.plot3D(station_core_x, station_core_y, station_core_z,c='black')
 plt.show()
