@@ -15,7 +15,7 @@ z_scale = 150
 
 scale = [x_scale, y_scale, z_scale]
 
-noise = 3  # meters
+noise = 10  # meters
 
 # beacons
 beacon_pos = []
@@ -37,11 +37,13 @@ def bulk_distance(beacons, point):
     distance = []
     for beacon in beacons:
 
-        d = (   (beacon[0] - point[0]) ** 2 +
+        d = (
+                (beacon[0] - point[0]) ** 2 +
                 (beacon[1] - point[1]) ** 2 +
-                (beacon[2] - point[2]) ** 2 +
-                random.randrange(-1, 1) * noise) * \
-                (1 + random.randrange(-1, 1) * 0.05)
+                (beacon[2] - point[2]) ** 2 * \
+                (1 + random.randrange(-1, 1) * 0.2) +  # noise as function of distance
+                random.randrange(-1, 1) * noise  # uniform noise
+            )
 
         distance.append(max(d, 0))  # Make distance noise
                                     # a function of distance to simulate weak signal
