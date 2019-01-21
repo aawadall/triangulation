@@ -81,20 +81,20 @@ z_predict = []
 velocity_vector = [0, 0, 0]
 beta = 0.99
 
-arm = 1
+arm = 1.5
 
 station_core_x = []
 station_core_y = []
 station_core_z = []
-station_dims = [arm, arm, arm * 5]
+station_dims = [arm, arm, arm * 2]
 
 # Station 1
 station_core = [x_scale / 2, -50, 1]
 station_core_x.append(station_core[0])
 station_core_y.append(station_core[1])
 station_core_z.append(station_core[2])
-for x_idx in range(2):
-    for y_idx in range(2):
+for x_idx in range(1):
+    for y_idx in range(1):
         for z_idx in range(2):
             beacon_pos.append([station_core[0] + station_dims[0] * x_idx,
                                station_core[1] + station_dims[1] * y_idx,
@@ -177,4 +177,5 @@ ax.plot3D(x_motion, y_motion, z_motion, c='green')
 ax.scatter(x_predict, y_predict, z_predict, c=error, marker='o')
 ax.scatter(station_core_x, station_core_y, station_core_z, marker='*',c='red')
 ax.plot3D(station_core_x, station_core_y, station_core_z,c='black')
+
 plt.show()
