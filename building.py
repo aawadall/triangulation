@@ -1,5 +1,5 @@
 """Building on fire behaviour"""
-from mpl_toolkits.mplot3d import axes3d, Axes3D
+from mpl_toolkits.mplot3d import Axes3D
 
 
 class Building(object):
@@ -117,6 +117,6 @@ class Building(object):
         x.append(px)
         y.append(py)
         z.append(pz)
-        return ax.plot3D(x, y, z, c='black')
+        return ax.plot(x, y, z, c='black')
 
 

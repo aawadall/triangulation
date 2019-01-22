@@ -1,6 +1,6 @@
 """Firefighter behaviour"""
 import random
-import string
+from mpl_toolkits.mplot3d import Axes3D
 
 names = [
     'Abigail',
@@ -198,4 +198,12 @@ class Firefighter(object):
         self.x_trail.append(self.location[0])
         self.y_trail.append(self.location[1])
         self.z_trail.append(self.location[2])
+
+    def draw(self, fig):
+        ax = Axes3D(fig)
+        f_line = ax.plot(self.x_trail,
+                         self.y_trail,
+                         self.z_trail,
+                         c='green')
+        return f_line
 
