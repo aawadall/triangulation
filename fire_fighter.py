@@ -167,6 +167,8 @@ names = [
     'Victor',
     'Warren',
     'William']
+
+
 class Firefighter(object):
     def __init__(self, location=[0,0,0],name=None, bounds=None):
         self.location = location
@@ -177,7 +179,8 @@ class Firefighter(object):
         self.velocity = [0.0, 0.0, 0.0]
         self.max_v = 1
         self.beta = 0.99
-        self.bounds=bounds
+        #TODO: health metrics
+        self.bounds = bounds
 
     def random_walk(self):
         random_step = [(random.random() - 0.5) * 2 * self.max_v for _ in range(3)]
