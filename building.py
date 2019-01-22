@@ -11,12 +11,12 @@ class Building(object):
         x = []
         y = []
         z = []
-        for x_idx in range(2):
-            for y_idx in range(2):
-                for z_idx in range(2):
-                    x.append(x_idx * self.scale[0])
-                    y.append(y_idx * self.scale[1])
-                    z.append(z_idx * self.scale[2])
+        for x_idx in range(4):
+            for y_idx in range(4):
+                for z_idx in range(4):
+                    x.append(x_idx % 2 * self.scale[0])
+                    y.append(y_idx % 2 * self.scale[1])
+                    z.append(z_idx % 2 * self.scale[2])
         return ax.plot3D(x, y, z, c='black')
 
 
