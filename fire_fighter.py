@@ -172,6 +172,9 @@ names = [
 class Firefighter(object):
     def __init__(self, location=[0,0,0],name=None, bounds=None):
         self.location = location
+        self.x_trail = [location[0]]
+        self.y_trail = [location[1]]
+        self.z_trail = [location[2]]
         if name is None:
             self.name = ''.join(random.choice(names))
         else:
@@ -192,3 +195,7 @@ class Firefighter(object):
                     self.location[idx] = 0
                 if self.location[idx] > self.bounds[idx]:
                     self.location[idx] = self.bounds[idx]
+        self.x_trail.append(self.location[0])
+        self.y_trail.append(self.location[1])
+        self.z_trail.append(self.location[2])
+
