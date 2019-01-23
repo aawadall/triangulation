@@ -1,7 +1,7 @@
 from building import Building
 from fire_fighter import Firefighter
 from beacon import Beacon
-import matplotlib.pyplot as plt
+from plotter import Plotter
 
 from mpl_toolkits.mplot3d import axes3d, Axes3D
 
@@ -18,7 +18,8 @@ print("Location after random walk", fireman_1.location)
 for _ in range(100):
     fireman_1.random_walk()
 print("Beacon: ", beacon_1.name, "location: ", beacon_1.location)
-fig = plt.figure()
+
+plotter = Plotter()
 
 f_fig = fireman_1.draw(fig)
 b_fig = building.draw(fig)
