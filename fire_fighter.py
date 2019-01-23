@@ -199,11 +199,8 @@ class Firefighter(object):
         self.y_trail.append(self.location[1])
         self.z_trail.append(self.location[2])
 
-    def draw(self, fig):
-        ax = Axes3D(fig)
-        f_line = ax.plot(self.x_trail,
-                         self.y_trail,
-                         self.z_trail,
-                         c='green')
-        return f_line
+    def draw(self):
+        return self.x_trail, \
+               self.y_trail, \
+               self.z_trail
 
