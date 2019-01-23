@@ -117,6 +117,6 @@ class Building(object):
         x.append(px)
         y.append(py)
         z.append(pz)
-        return ax.plot(x, y, z, c='black')
+        x, y, z
 
 
