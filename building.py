@@ -6,8 +6,8 @@ class Building(object):
     def __init__(self, scale):
         self.scale = scale
 
-    def draw(self, fig):
-        ax = Axes3D(fig)
+    def draw(self):
+        """returns building shape"""
         x = []
         y = []
         z = []
@@ -71,7 +71,7 @@ class Building(object):
         y.append(py)
         z.append(pz)
 
-        #Col 3
+        # Col 3
         pz += self.scale[2]
         x.append(px)
         y.append(py)
@@ -117,6 +117,6 @@ class Building(object):
         x.append(px)
         y.append(py)
         z.append(pz)
-        x, y, z
+        return x, y, z
 
 
