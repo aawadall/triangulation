@@ -3,7 +3,6 @@ from fire_fighter import Firefighter
 from beacon import Beacon
 from plotter import Plotter
 
-from mpl_toolkits.mplot3d import axes3d, Axes3D
 
 scale = [10, 10, 10]
 
@@ -21,9 +20,9 @@ print("Beacon: ", beacon_1.name, "location: ", beacon_1.location)
 
 plotter = Plotter()
 
-f_fig = fireman_1.draw(fig)
-b_fig = building.draw(fig)
+b_x, b_y, b_z = building.draw()
+f_x, f_y, f_z = fireman_1.draw()
+plotter.draw_line(b_x, b_y, b_z, color='black')
+plotter.draw_line(f_x, f_y, f_z, color='green')
 
-f_fig.draw()
-plt.show()
-
+plotter.show()
