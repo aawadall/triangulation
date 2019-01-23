@@ -182,7 +182,9 @@ class Firefighter(object):
         self.velocity = [0.0, 0.0, 0.0]
         self.max_v = max_v
         self.beta = beta
-        #TODO: health metrics
+        #@todo add health metrics
+        #@body define how health metrics are to be stored per firefighter,
+        # and decide if it is stored in a separate object or under the main Firefighter object
         self.bounds = bounds
 
     def random_walk(self):
