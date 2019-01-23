@@ -22,7 +22,8 @@ plotter = Plotter()
 
 b_x, b_y, b_z = building.draw()
 f_x, f_y, f_z = fireman_1.draw()
-plotter.draw_line(b_x, b_y, b_z, color='black')
+
 plotter.draw_line(f_x, f_y, f_z, color='green')
+plotter.draw_line(b_x, b_y, b_z, color='black')
 
 plotter.show()

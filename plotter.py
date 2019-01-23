@@ -6,28 +6,28 @@ from mpl_toolkits.mplot3d import Axes3D
 class Plotter(object):
     def __init__(self):
         self.fig = plt.figure()
+        self.ax = []
 
     def draw_line(self, x, y, z, color=None):
-        ax = Axes3D(self.fig)
+        self.ax.append(Axes3D(self.fig))
         if color is None:
-            ax.plot(x, y, z)
+            self.ax[-1].plot3D(x, y, z)
         else:
-            ax.plot(x, y, z, c=color)
+            self.ax[-1].plot3D(x, y, z, c=color)
 
     def drw_scatter(self, x, y, z, color=None, marker=None):
-        ax = Axes3D(self.fig)
+        self.ax.append(Axes3D(self.fig))
         if color is None:
             if marker is None:
-                ax.scatter(x, y, z)
+                self.ax[-1].scatter(x, y, z)
             else:
-                ax.scatter(x, y, z, marker=marker)
+                self.ax[-1].scatter(x, y, z, marker=marker)
         else:
             if marker is None:
-                ax.scatter(x, y, z, c=color)
+                self.ax[-1].scatter(x, y, z, c=color)
             else:
-                ax.scatter(x, y, z, marker=marker, c=color)
+                self.ax[-1].scatter(x, y, z, marker=marker, c=color)
 
-    @staticmethod
-    def show():
-        plt.show()
+    def show(self):
+        plt.show(self.fig)
 
