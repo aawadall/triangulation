@@ -17,28 +17,24 @@ class Scatters(object):
         self.y = y
         self.z = z
         self.color = color
-        self.marker=marker
+        self.marker = marker
+
 
 class Plotter(object):
     def __init__(self):
         self.fig = plt.figure()
         self.lines = []
         self.scatters = []
+
     def draw_line(self, x, y, z, color=None):
         line = Line(x, y, z, color)
         self.lines.append(line)
-
 
     def drw_scatter(self, x, y, z, color=None, marker=None):
         scatter = Scatters(x, y, z, color, marker)
         self.scatters.append(scatter)
 
-
-
-
-
     def show(self):
-
         ax = Axes3D(self.fig)
         for l in self.lines:
             if l.color is None:
