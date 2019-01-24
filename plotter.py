@@ -22,7 +22,7 @@ class Scatters(object):
 
 class Plotter(object):
     def __init__(self):
-        self.fig = plt.figure()
+        self.fig = plt.figure(figsize=plt.figaspect(1) )
         self.lines = []
         self.scatters = []
 
