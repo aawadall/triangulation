@@ -27,19 +27,24 @@ class Plotter(object):
     def draw_line(self, x, y, z, color=None):
         line = Line(x, y, z, color)
         self.lines.append(line)
+
+
+    def drw_scatter(self, x, y, z, color=None, marker=None):
+        scatter = Scatters(x, y, z, color, marker)
+        self.scatters.append(scatter)
+
+
+
+
+
+    def show(self):
+
         ax = Axes3D(self.fig)
         for l in self.lines:
             if l.color is None:
                 ax.plot3D(l.x, l.y, l.z)
             else:
                 ax.plot3D(l.x, l.y, l.z, c=l.color)
-
-    def drw_scatter(self, x, y, z, color=None, marker=None):
-        scatter = Scatters(x, y, z, color, marker)
-        self.scatters.append(scatter)
-
-        ax = Axes3D(self.fig)
-
         for s in self.scatters:
             if s.color is None:
                 if s.marker is None:
@@ -51,7 +56,5 @@ class Plotter(object):
                     ax.scatter(s.x, s.y, s.z, c=s.color)
                 else:
                     ax.scatter(s.x, s.y, s.z, marker=s.marker, c=s.color)
-
-    def show(self):
         plt.show(self.fig)
 
