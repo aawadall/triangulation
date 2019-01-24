@@ -5,10 +5,10 @@ from mpl_toolkits.mplot3d import Axes3D
 
 class Line(object):
     def __init__(self, x, y, z, color):
-        self.x=x
-        self.y=y
-        self.z=z
-        self.color=color
+        self.x = x
+        self.y = y
+        self.z = z
+        self.color = color
 
 
 class Scatters(object):
