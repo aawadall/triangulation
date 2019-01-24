@@ -14,3 +14,6 @@ class Beacon(object):
     def get_location(self):
         return self.location[0], self.location[1], self.location[2]
 
+    # TODO return scatter object
+    # BODY modify all objects to return either a Line or a Scatter object rather than returning locations
+
