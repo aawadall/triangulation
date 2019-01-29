@@ -29,3 +29,11 @@ class CentralUnit(object):
         #TODO from fireman index, get its location using its beacons
         pass
 
+    def calibrate_beacons(self):
+        """ensure all beacons are properly located"""
+        pass
+
+    def find_all_firemen(self):
+        """locate all firemen"""
+        pass
+
