@@ -1,5 +1,5 @@
 """Building on fire behaviour"""
-from mpl_toolkits.mplot3d import Axes3D
+from plotter import Line
 
 
 class Building(object):
@@ -117,6 +117,7 @@ class Building(object):
         x.append(px)
         y.append(py)
         z.append(pz)
-        return x, y, z
+
+        Line(x, y, z, 'black')
 
 

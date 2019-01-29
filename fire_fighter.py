@@ -1,6 +1,6 @@
 """Firefighter behaviour"""
 import random
-
+from plotter import Line
 
 names = [
     'Abigail',
@@ -203,7 +203,8 @@ class Firefighter(object):
         self.z_trail.append(self.location[2])
 
     def draw(self):
-        return self.x_trail, \
-               self.y_trail, \
-               self.z_trail
+        return Line(self.x_trail,
+                    self.y_trail,
+                    self.z_trail,
+                    'green')
 
