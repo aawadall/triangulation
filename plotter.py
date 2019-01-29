@@ -34,21 +34,12 @@ class Plotter(object):
 
     def show(self):
         ax = Axes3D(self.fig)
+
         for l in self.lines:
-            if l.color is None:
-                ax.plot3D(l.x, l.y, l.z)
-            else:
-                ax.plot3D(l.x, l.y, l.z, c=l.color)
+            ax.plot3D(l.x, l.y, l.z, c=l.color)
+
         for s in self.scatters:
-            if s.color is None:
-                if s.marker is None:
-                    ax.scatter(s.x, s.y, s.z)
-                else:
-                    ax.scatter(s.x, s.y, s.z, marker=s.marker)
-            else:
-                if s.marker is None:
-                    ax.scatter(s.x, s.y, s.z, c=s.color)
-                else:
-                    ax.scatter(s.x, s.y, s.z, marker=s.marker, c=s.color)
+            ax.scatter(s.x, s.y, s.z, marker=s.marker, c=s.color)
+
         plt.show(self.fig)
 

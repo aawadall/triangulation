@@ -118,6 +118,6 @@ class Building(object):
         y.append(py)
         z.append(pz)
 
-        Line(x, y, z, 'black')
+        return Line(x, y, z, 'black')
 
 
