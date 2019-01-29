@@ -1,0 +1,1 @@
+"""This unit should collect information from beacons, and locates firemen based on information passed"""

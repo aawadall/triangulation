@@ -21,6 +21,8 @@ for _ in range(1000):
         fireman_1.random_walk()
 
 
+print("Distance between beacon[0] and fireman[0]",firemen[0].name,beacons[0].get_distance(firemen[0]))
+
 plotter = Plotter()
 
 plotter.draw_line(building.draw())
