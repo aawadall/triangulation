@@ -3,6 +3,7 @@ import random
 import string
 from plotter import Scatters
 
+
 class Beacon(object):
     def __init__(self, location, color='black', marker='^', name=None):
         self.location = location
