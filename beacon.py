@@ -1,7 +1,7 @@
 """Beacons used to measure distance to a moving object"""
 import random
 import string
-
+from plotter import Scatters
 
 class Beacon(object):
     def __init__(self, location, color='black', marker='^', name=None):
@@ -14,6 +14,10 @@ class Beacon(object):
     def get_location(self):
         return self.location[0], self.location[1], self.location[2]
 
-    # TODO return scatter object
-    # BODY modify all objects to return either a Line or a Scatter object rather than returning locations
+    def draw_beacon(self):
+        return Scatters([self.location[0]],
+                        [self.location[1]],
+                        [self.location[2]],
+                        self.color,
+                        self.marker)
 
