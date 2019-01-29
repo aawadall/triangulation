@@ -26,12 +26,10 @@ class Plotter(object):
         self.lines = []
         self.scatters = []
 
-    def draw_line(self, x, y, z, color=None):
-        line = Line(x, y, z, color)
+    def draw_line(self, line):
         self.lines.append(line)
 
-    def drw_scatter(self, x, y, z, color=None, marker=None):
-        scatter = Scatters(x, y, z, color, marker)
+    def drw_scatter(self, scatter):
         self.scatters.append(scatter)
 
     def show(self):
