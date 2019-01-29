@@ -22,14 +22,10 @@ for _ in range(100):
 
 plotter = Plotter()
 
-b_x, b_y, b_z = building.draw()
-f_x, f_y, f_z = fireman_1.draw()
-
-plotter.draw_line(f_x, f_y, f_z, color='green')
-plotter.draw_line(b_x, b_y, b_z, color='black')
+plotter.draw_line(building.draw())
+plotter.draw_line(fireman_1.draw())
 
 for beacon_1 in beacons:
-    x, y, z = beacon_1.get_location()
-    plotter.drw_scatter(x, y, z, beacon_1.color, beacon_1.marker)
+    plotter.drw_scatter(beacon_1.draw_beacon())
 
 plotter.show()
